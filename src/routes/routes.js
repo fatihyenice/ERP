@@ -1,7 +1,7 @@
 import Home from "../pages/Home.vue" 
 import Connexion from "../pages/Connexion.vue" 
 import DashBoard from "../pages/DashBoard.vue"
-import Client from "../pages/Composants/Client.vue"  
+import Client from "../pages/CardThemes/Client.vue"  
 
  export const routes = [
   { path: '/', component: Home, nom: "Accueil", connected: false }, 

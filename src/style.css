@@ -375,7 +375,7 @@ input[type="password"].success {
   font-weight: 500;
   left: 35px;
   width: 300px;
-  font-size: 1.6em;
+  font-size: 1em;
   letter-spacing: 1px;
   position: relative;
   color: #fff;
@@ -610,16 +610,16 @@ input[type="password"].success {
 .message {
   width: 100%;
   padding: 10px;
-  margin-inline: 10px;
-  border-radius: 10px;
+  border-radius: 3px;
   color: #fff;
   font-family: var(--font-paragraphe);
-  box-shadow: 0 2px 0 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.1);
   text-align: center;
+  margin-bottom: 10px;
 }
 
 .message.error {
-  background: #d63031;
+  background: rgb(226, 85, 85)
 }
 
 .message.warning {
@@ -661,6 +661,9 @@ input[type="password"].success {
   .container--card-dashboard {
     grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
   }
+  .header--top-admin h2 {
+    font-size: 1.4em;
+  }
 }
 
 @media screen and (min-width: 1024px) {
@@ -669,5 +672,9 @@ input[type="password"].success {
     grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
     margin-inline: 30px;
     margin-top: 15px;
+  }
+
+  .header--top-admin h2 {
+    font-size: 1.6em;
   }
 }

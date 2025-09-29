@@ -10,44 +10,54 @@
     </div>
   </div>
 
-  <div class="inscription-box" ref="inscription">
+  <div class="inscription-box" ref="connexion" v-if="!logginStores.isAuthed">
+    <div
+      class="animate__animated animate__headShake message error"
+      v-if="logginStores.errormsg"
+    >
+      {{ logginStores.errormsg }}
+    </div>
+
     <form method="POST">
-      <label> Votre adresse mail: </label>
+      <label> Votre adresse mail:</label>
       <input
         type="text"
-        v-model="nom"
-        :class="{ success: nom }"
+        v-model="logginStores.email"
+        :class="{ success: logginStores.email }"
         placeholder="Yenice"
       />
       <label> Votre mot de passe </label>
       <input
         type="password"
-        v-model="mdp"
-        :class="{ success: mdp }"
+        v-model="logginStores.mdp"
+        :class="{ success: logginStore.mdp }"
         placeholder="*********"
       />
 
-      <input type="submit" class="btn-submit" :disabled="!allFullField" />
+      <input
+        type="submit"
+        class="btn-submit"
+        value="Me connecter"
+        @click="logginStores.loggin"
+        :disabled="!logginStores.allFullField"
+      />
     </form>
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch } from "vue";
 import Header from "../templates/Header.vue";
+import { logginStore } from "../stores/connexionStore";
+import BouttonPrimary from "../components/BouttonPrimary.vue";
+import { onMounted } from "vue";
 
-const inscription = ref(null);
+const logginStores = logginStore();
 
 onMounted(() => {
-  if (inscription.value) {
-    inscription.value.classList.add("animate__animated", "animate__fadeInDown");
-  }
-});
+  logginStores.isAuthedTry();
 
-const nom = ref("");
-const mdp = ref("");
-
-const allFullField = computed(() => {
-  return nom.value && mdp.value;
+  logginStores.email = "";
+  logginStores.mdp = "";
+  logginStores.errormsg = false;
 });
 </script>

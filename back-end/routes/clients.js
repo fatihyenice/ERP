@@ -2,8 +2,9 @@ const express = require('express');
 const pool = require('../db/db');
 const router = express.Router();
 const authMiddleWare = require('../middlewares/auth')
+const authCard = require('../middlewares/autorizationCard')
 
-router.get('/getAllClient', authMiddleWare, (req, res) => {
+router.get('/getAllClient', authMiddleWare, authCard(1), (req, res) => {
     const requete = "SELECT * FROM autoriser aut INNER JOIN themes the ON aut.Id_themes = the.Id_themes WHERE aut.Id_users = ? AND aut.Id_themes = ?"
     const donnees = [req.session.authed, 1];
 
@@ -28,7 +29,7 @@ router.get('/getAllClient', authMiddleWare, (req, res) => {
     })
 })
 
-router.post('/detail', authMiddleWare, (req, res) => {
+router.post('/detail', authMiddleWare, authCard(1), (req, res) => {
     const { idClient } = req.body;
 
     if(!/^\d+$/.test(idClient)){

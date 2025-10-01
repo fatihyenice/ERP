@@ -14,7 +14,7 @@
 
     <CardDashboard
       v-for="theme in themeStores.allThemes"
-      :key="theme.id"
+      :key="theme.Id_themes"
       :nomcard="theme.nom"
       :contexte="theme.description"
       :remixiconne="theme.icone"

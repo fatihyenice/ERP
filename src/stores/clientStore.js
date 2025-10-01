@@ -1,32 +1,27 @@
 import { defineStore } from "pinia";
 import { axiosconfig } from "../axios/axios-config";
 import { ref } from "vue";
-import { useRouter } from "vue-router";
-import axios from "axios";
+import { useRouter } from "vue-router"; 
 
 export const client = defineStore('client', () => {
 
     const allClients = ref(null);
-    const alert = ref(null);
-    const autorisations = ref(true);
+    const alert = ref(null); 
     const router = useRouter();
-    const introuvable = ref(false);
-
-    // Détail clients
+    const introuvable = ref(false); 
     const DetailClient = ref(false);
     const loading = ref(true);
+
+    const autorization = ref(null)
     
     const getAllClients = async() => {
         try{
             const response = await axiosconfig.get('clients/getAllClient')
-            if(response.data.unhautorized){
-                autorisations.value = false;
-            }else{
-                allClients.value = response.data;
-                autorisations.value = true;
-            }
-        }catch(e){
-            alert.value = "Impossible de récupérer les clients !";
+            
+            allClients.value = response.data
+        }catch(e){ 
+            console.log(e)
+            autorization.value = e.response.data.unauthorized
         }
     }
 
@@ -38,8 +33,7 @@ export const client = defineStore('client', () => {
         if (!/^\d+$/.test(getIdClient)) {
             router.push('/client/all');
             return false;
-        }  
-
+        }   
         return true;
     }
 
@@ -64,19 +58,20 @@ export const client = defineStore('client', () => {
             DetailClient.value = false;
             loading.value = false;
             console.log(e);
+            autorization.value = e.response.data.unauthorized
         }
     }
 
     return {
         getAllClients,
         allClients,
-        alert,
-        autorisations,
+        alert, 
         detailClient,
         isValidClientIdOnDetailPage,
         getDetailClient,
         DetailClient,
         loading,
-        introuvable
+        introuvable,
+        autorization
     }
 })

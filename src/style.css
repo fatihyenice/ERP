@@ -409,9 +409,13 @@ form label {
   width: 300px;
   font-size: 1em;
   letter-spacing: 1px;
+  text-decoration: none;
   position: relative;
   color: #fff;
   font-family: var(--font-paragraphe);
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .header--top-admin {
@@ -453,6 +457,10 @@ form label {
   gap: 20px;
 }
 
+.action > * {
+  text-decoration: none;
+}
+
 .action div {
   display: flex;
   justify-content: center;
@@ -463,13 +471,17 @@ form label {
   &:hover {
     background: #fff;
     cursor: pointer;
-    color: var(--color-primary);
+    color: var(--color-primary) !important;
   }
 }
 
-.action div i {
+.action > * div > i {
   font-size: 1.3em;
   font-weight: 400;
+  color: #fff;
+  &:hover {
+    color: var(--color-primary);
+  }
 }
 
 .header-latteral {

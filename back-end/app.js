@@ -38,8 +38,7 @@ app.use("/clients", clientRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
-}) 
- 
+})  
 
 app.listen(port, () => {
   console.log(`Serveur lancé sur le port ${port}`)

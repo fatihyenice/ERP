@@ -78,6 +78,12 @@
       </div>
     </div>
 
+    <div v-else-if="clientStore.autorization">
+      <div class="message error">
+        {{ clientStore.autorization }}
+      </div>
+    </div>
+
     <div v-else>
       <div class="message error">Le client est introuvable</div>
     </div>

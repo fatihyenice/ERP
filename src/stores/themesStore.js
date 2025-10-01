@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue"; 
 import { useRouter } from "vue-router"; 
-import { axiosconfig } from "../axios/axios-config"
+import { axiosconfig } from "../axios/axios-config" 
 
 export const themestore = defineStore("themestore", () => {
 
@@ -40,7 +40,7 @@ export const themestore = defineStore("themestore", () => {
         }
     }
  
-    const openTheme = (params) => {
+    const openTheme = (params) => { 
         router.push(params)
     }
 

@@ -1,6 +1,6 @@
 <template>
-  <div v-if="clients.autorisations">
-    <div class="card--container" v-if="clients.allClients?.length">
+  <div>
+    <div class="card--container" v-if="clients.allClients">
       <div
         class="card"
         v-for="client in clients.allClients"
@@ -15,17 +15,11 @@
         <p><strong>Entreprise:</strong> Dupont SARL</p>
       </div>
     </div>
-    <div v-else>
-      <div class="message">Aucun client trouvé.</div>
-    </div>
-  </div>
 
-  <div v-else>
-    <div class="message error">
-      {{
-        clients.alert ||
-        "Vous n'avez pas l'autorisation d'accéder à la gestion des clients !"
-      }}
+    <div v-else-if="clients.autorization">
+      <div class="message error">
+        {{ clients.autorization }}
+      </div>
     </div>
   </div>
 </template>

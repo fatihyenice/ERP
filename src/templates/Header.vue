@@ -5,11 +5,23 @@
         <span>ERP</span> Tous vos process, en un seul endroit
       </div>
       <nav>
+        <LinkHeader texte="Accueil" url="/" />
         <LinkHeader
-          v-for="route in routesNotConnected"
-          :key="route.path"
-          :texte="route.nom"
-          :url="route.path"
+          texte="Connexion"
+          v-if="!isLoading && logginStores.isAuthed == false"
+          url="/connexion"
+        />
+
+        <LinkHeader
+          texte="Dashboard"
+          v-if="!isLoading && logginStores.isAuthed == true"
+          url="/dashboard"
+        />
+
+        <LinkHeader
+          texte="Déconnexion"
+          @click="logginStores.logout"
+          v-if="!isLoading && logginStores.isAuthed == true"
         />
       </nav>
     </div>
@@ -17,8 +29,15 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from "vue";
 import LinkHeader from "../components/LinkHeader.vue";
-import { routes } from "../routes/routes";
+import { logginStore } from "../stores/connexionStore";
 
-const routesNotConnected = routes.filter((p) => !p.connected);
+const logginStores = logginStore();
+const isLoading = ref(true);
+
+onMounted(async () => {
+  await logginStores.isAuthedTry();
+  isLoading.value = false;
+});
 </script>

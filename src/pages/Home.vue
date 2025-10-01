@@ -5,10 +5,10 @@
       Gérez vos marchandises, clients et factures depuis une seule plateforme.
     </h1>
 
-    <div class="hero--container-button">
-      <router-link to="/dashboard">
-        <BouttonPrimary text="Me connecter" id="btn-mg" />
-      </router-link>
+    <div class="hero--container-button" v-if="!logginStores.isAuthed">
+      <router-link to="/connexion"
+        ><BouttonPrimary text="Me connecter" id="btn-mg"
+      /></router-link>
     </div>
   </div>
 
@@ -32,4 +32,7 @@
 import Header from "../templates/Header.vue";
 import BouttonPrimary from "../components/BouttonPrimary.vue";
 import CardAccueil from "../components/CardAccueil.vue";
+import { logginStore } from "../stores/connexionStore";
+
+const logginStores = logginStore();
 </script>

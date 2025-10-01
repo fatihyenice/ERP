@@ -47,6 +47,7 @@ body {
   font-family: var(--font-sans);
   background: var(--color-bg);
   color: var(--color-text);
+  height: ;
 }
 
 .header {
@@ -120,6 +121,26 @@ body {
   position: relative;
 }
 
+.hero--container-detail {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(
+      rgba(10, 25, 50, 0.3),
+      rgba(10, 25, 50, 0.3)
+    ),
+    url("/src/assets/images/detailclient.png");
+
+  color: var(--color-primary);
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
 .inscription--container {
   width: 100%;
   height: 340px;
@@ -151,7 +172,8 @@ body {
   text-shadow: -1px 1px 1px #000;
 }
 
-.hero--container h1 {
+.hero--container h1,
+.hero--container-detail h1 {
   font-size: 2em;
   font-weight: 700;
   color: var(--color-bg);
@@ -208,6 +230,10 @@ body {
   padding: 10px;
   border-radius: 10px;
   position: relative;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.7;
+  }
 }
 
 .card .card--title {
@@ -252,8 +278,9 @@ body {
 }
 
 /* Styles globaux pour les inputs */
-.inscription-box form input[type="text"],
-input[type="password"] {
+form input[type="email"],
+input[type="password"],
+form input[type="text"] {
   width: 100%;
   padding: 12px 16px;
   font-family: var(--font-paragraphe);
@@ -268,24 +295,24 @@ input[type="password"] {
 }
 
 /* Hover */
-.inscription-box form input[type="text"]:hover {
+input[type="text"]:hover {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2); /* léger halo */
 }
 
 /* Focus */
-.inscription-box form input[type="text"]:focus {
+form input[type="text"]:focus {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
 }
 
 /* Placeholder */
-.inscription-box form input[type="text"]::placeholder {
+form input[type="text"]::placeholder {
   color: var(--color-text-muted);
 }
 
 /* États */
-.inscription-box form input[type="text"].success,
+form input[type="text"].success,
 input[type="password"].success {
   border-color: var(--color-success);
   background-color: rgba(22, 163, 74, 0.05);
@@ -302,15 +329,15 @@ input[type="password"].success {
 }
 
 /* Optionnel : placeholder change selon état */
-.inscription-box form input[type="text"].error::placeholder {
+form input[type="text"].error::placeholder {
   color: var(--color-danger);
 }
 
-.inscription-box form input[type="text"].success::placeholder {
+form input[type="text"].success::placeholder {
   color: var(--color-success);
 }
 
-.inscription-box form label {
+form label {
   font-family: var(--font-paragraphe);
   font-weight: 600;
   color: var(--color-text);
@@ -371,6 +398,11 @@ input[type="password"].success {
   flex: 0 0 300px;
 }
 
+.header-latteral div {
+  position: fixed;
+  width: inherit;
+}
+
 .header--top-admin h2 {
   font-weight: 500;
   left: 35px;
@@ -397,11 +429,11 @@ input[type="password"].success {
   width: 60%;
 }
 
-.header--top-admin form input {
+.header--top-admin input {
   width: 100%;
 }
 
-.header--top-admin form input[type="text"] {
+.header--top-admin input[type="text"] {
   padding: 10px;
   background: var(--color-primary-hover);
   border: none;
@@ -450,7 +482,7 @@ input[type="password"].success {
   margin-top: 30px;
 }
 
-.header-latteral > * {
+.header-latteral div > * {
   background: var(--color-primary-hover);
   margin-top: 10px;
   padding: 10px;
@@ -466,11 +498,11 @@ input[type="password"].success {
   box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.1);
 }
 
-.header-latteral > * i {
+.header-latteral div > * i {
   font-size: 1.3em;
 }
 
-.header-latteral > *:hover {
+.header-latteral div > *:hover {
   background: #1d4fd8a9;
   cursor: pointer;
   text-indent: 3px;
@@ -618,8 +650,13 @@ input[type="password"].success {
   margin-bottom: 10px;
 }
 
+.message a {
+  text-decoration: underline;
+  color: #fff;
+}
+
 .message.error {
-  background: rgb(226, 85, 85)
+  background: rgb(226, 85, 85);
 }
 
 .message.warning {

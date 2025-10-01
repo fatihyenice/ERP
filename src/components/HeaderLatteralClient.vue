@@ -1,14 +1,15 @@
 <template>
   <nav class="header-latteral">
-    <router-link v-for="trie in filter" :key="trie.nom" :to="trie.path"
-      >{{ trie.nom }} <i class="ri-arrow-right-circle-line"></i
-    ></router-link>
+    <div v-if="route.path.startsWith('/client')">
+      <router-link to="/client/all">Tous les clients</router-link>
+      <router-link to="/client/add">Ajouter un nouveau client</router-link>
+      <router-link to="/client/del">Supprimer un client</router-link>
+    </div>
   </nav>
-</template>
+</template> 
 
 <script setup>
-import { computed } from "vue";
-import { routes } from "../routes/routes";
+import { useRoute } from "vue-router";
 
-const filter = computed(() => routes.filter((p) => p.connected && p.admin));
+const route = useRoute();
 </script>

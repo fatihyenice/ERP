@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue"; 
 import { useRouter } from "vue-router"; 
+import { axiosconfig } from "../axios/axios-config"
 
 export const themestore = defineStore("themestore", () => {
 
@@ -12,21 +13,24 @@ export const themestore = defineStore("themestore", () => {
     const router = useRouter();
 
     const fetchThemes = async () => {
+        loading.value = true;
+        error.value = null;  
+
         try {
-            const response = await fetch("http://localhost:3000/getThemes");
-            if (!response.ok) throw new Error("Erreur HTTP " + response.status);
-            const data = await response.json();
-            allThemes.value = data;
-            originalThemes.value = data;
+            const response = await axiosconfig.get("themes/getThemes"); 
+            allThemes.value = response.data;
+            originalThemes.value = response.data;
         } catch (err) {
-            console.error("Erreur lors de la récupération des thèmes :", err);
+            console.error("Erreur fetchThemes:", err); // pour debugger
             error.value = "Impossible de récuperer les thèmes !";
         } finally {
             loading.value = false;
         }
     };
 
-    const searchThemes = () => {
+
+    const searchThemes = (e) => {
+        e.preventDefault();
         if(inputSearch.value.length > 0){
             allThemes.value = originalThemes.value.filter(theme => {
                 return theme.nom.trim().toLowerCase().includes(inputSearch.value.trim().toLowerCase())

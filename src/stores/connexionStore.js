@@ -1,5 +1,5 @@
  import { defineStore } from "pinia";
-import { computed, onMounted, ref } from "vue";  
+import { computed, ref } from "vue";  
 import { axiosconfig } from "../axios/axios-config";
 import { useRouter } from "vue-router";
 
@@ -26,7 +26,7 @@ export const logginStore = defineStore("loginStore", () => {
         }
         
         try {
-            const response = await axiosconfig.post("/loggin", {
+            const response = await axiosconfig.post("auth/loggin", {
                 email: email.value,
                 mdp: mdp.value
             });
@@ -47,14 +47,21 @@ export const logginStore = defineStore("loginStore", () => {
 
     const isAuthedTry = async() => {
         try {
-            const response = await axiosconfig.get('check-auth')
-            isAuthed.value = response.data.authed;
-
-            if(isAuthed.value === true){
-                routes.push('/dashboard');
-            }
+            const response = await axiosconfig.get('auth/check-auth')
+            isAuthed.value = response.data.authed; 
         }catch(error){
-                errormsg.value = "Erreur serveur inconnue" + error;
+            errormsg.value = "Erreur serveur inconnue" + error;
+        }
+    }
+
+    const logout = async() => {
+        try {
+            const response = await axiosconfig.get('auth/logout');
+            await isAuthedTry();
+            isAuthed.value = false;
+            routes.push("/")
+        }catch(e) {
+            console.log(e);
         }
     }
 
@@ -65,6 +72,7 @@ export const logginStore = defineStore("loginStore", () => {
         loggin,
         errormsg,
         isAuthedTry,
-        isAuthed
+        isAuthed,
+        logout
     }
 })

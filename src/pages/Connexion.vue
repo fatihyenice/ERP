@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <div class="inscription--container">
+  <div class="inscription--container" v-if="!logginStores.isAuthed">
     <h1>Connexion</h1>
 
     <div class="hero--container-button">
@@ -21,10 +21,10 @@
     <form method="POST">
       <label> Votre adresse mail:</label>
       <input
-        type="text"
+        type="email"
         v-model="logginStores.email"
         :class="{ success: logginStores.email }"
-        placeholder="Yenice"
+        placeholder="azerty@exemple.com"
       />
       <label> Votre mot de passe </label>
       <input
@@ -42,6 +42,15 @@
         :disabled="!logginStores.allFullField"
       />
     </form>
+  </div>
+
+  <div v-else>
+    <div class="message error">
+      Vous êtes déjà connecté !
+      <router-link to="/dashboard"
+        >Cliquez ici pour retourner sur vos dashboard.</router-link
+      >
+    </div>
   </div>
 </template>
 

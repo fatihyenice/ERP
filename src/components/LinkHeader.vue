@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="url">{{ texte }}</router-link>
+  <router-link :to="url || '#'">{{ texte }}</router-link>
 </template>
 
 <script setup>
@@ -10,7 +10,6 @@ defineProps({
   },
   url: {
     type: String,
-    required: true,
   },
 });
 </script>

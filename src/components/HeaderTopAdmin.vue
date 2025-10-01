@@ -1,18 +1,18 @@
 <template>
   <header class="header--top-admin">
     <h2>FatihSolution</h2>
-    <form method="POST">
-      <input
-        type="text"
-        @input="themestores.searchThemes()"
-        v-model="themestores.inputSearch"
-        placeholder="Rechercher ici..."
-      />
-    </form>
+    <input
+      type="text"
+      @input="themestores.searchThemes()"
+      v-model="themestores.inputSearch"
+      placeholder="Rechercher ici..."
+    />
 
-    <div class="action">
+    <div class="action" v-if="logginStores.isAuthed">
       <div @click="openNotif()"><i class="ri-notification-3-line"></i></div>
-      <div><i class="ri-logout-box-r-line"></i></div>
+      <div>
+        <i class="ri-logout-box-r-line" @click="logginStores.logout"></i>
+      </div>
     </div>
 
     <div class="header--admin-notification">
@@ -23,8 +23,9 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
 import { themestore } from "../stores/themesStore";
+import { logginStore } from "../stores/connexionStore";
 
 const themestores = themestore();
+const logginStores = logginStore();
 </script>

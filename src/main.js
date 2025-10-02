@@ -6,7 +6,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { createPinia } from 'pinia';
 
 const app = createApp(App);
-const pinia = createPinia();
+const pinia = createPinia(); 
 
 export const router = createRouter({
   history: createWebHistory(),

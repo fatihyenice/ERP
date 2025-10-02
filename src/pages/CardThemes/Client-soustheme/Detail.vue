@@ -1,6 +1,6 @@
 <template>
   <div class="contenue--dashboard">
-    <div class="hero--container-detail" v-if="clientStore.loading">
+    <!-- <div class="hero--container-detail" v-if="clientStore.loading">
       <h1>Chargement...</h1>
     </div>
     <div class="hero--container-detail" v-if="clientStore.introuvable">
@@ -10,13 +10,17 @@
       <h1>
         {{ clientStore.DetailClient.nom }} {{ clientStore.DetailClient.prenom }}
       </h1>
+    </div> -->
+
+    <div v-if="clientStore.autorization === 'loading'">Chargement...</div>
+    <div v-else-if="clientStore.autorization">
+      <div class="message error">
+        {{ clientStore.autorization }}
+      </div>
     </div>
 
     <!-- Informations Client -->
-    <div
-      class="card--container"
-      v-if="clientStore.DetailClient && !clientStore.introuvable"
-    >
+    <div class="card--container" v-else-if="clientStore.DetailClient">
       <!-- Informations personnelles -->
       <div class="card">
         <div class="card--title">
@@ -78,12 +82,6 @@
       </div>
     </div>
 
-    <div v-else-if="clientStore.autorization">
-      <div class="message error">
-        {{ clientStore.autorization }}
-      </div>
-    </div>
-
     <div v-else>
       <div class="message error">Le client est introuvable</div>
     </div>
@@ -99,6 +97,9 @@ const clientStore = client();
 const route = useRoute();
 
 onMounted(async () => {
-  clientStore.getDetailClient(route.params.id);
+  await clientStore.hassCheck();
+  if (!clientStore.autorization) {
+    clientStore.getDetailClient(route.params.id);
+  }
 });
 </script>

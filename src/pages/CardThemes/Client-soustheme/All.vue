@@ -1,6 +1,12 @@
 <template>
   <div>
-    <div class="card--container" v-if="clients.allClients">
+    <div v-if="clients.autorization === 'loading'">Chargement...</div>
+    <div v-else-if="clients.autorization">
+      <div class="message error">
+        {{ clients.autorization }}
+      </div>
+    </div>
+    <div class="card--container" v-else>
       <div
         class="card"
         v-for="client in clients.allClients"
@@ -15,12 +21,6 @@
         <p><strong>Entreprise:</strong> Dupont SARL</p>
       </div>
     </div>
-
-    <div v-else-if="clients.autorization">
-      <div class="message error">
-        {{ clients.autorization }}
-      </div>
-    </div>
   </div>
 </template>
 
@@ -31,7 +31,10 @@ import { client } from "../../../stores/clientStore";
 
 const clients = client();
 
-onMounted(() => {
-  clients.getAllClients();
+onMounted(async () => {
+  await clients.hassCheck();
+  if (!clients.autorization) {
+    clients.getAllClients();
+  }
 });
 </script>

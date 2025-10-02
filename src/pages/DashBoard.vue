@@ -46,8 +46,8 @@ const themeStores = themestore();
 const Loading = ref(true);
 
 onMounted(async () => {
-  await logginStores.isAuthedTry();
-  themeStores.fetchThemes();
+  logginStores.isAuthedTry();
+  await themeStores.fetchThemes();
 
   Loading.value = false;
 });
